@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐竞体育 · 知识库索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fde9c8 0%, #f5d7b2 50%, #eec9a0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem 3rem;
+            line-height: 1.7;
+            color: #2d2a24;
+        }
+
+        .page-wrapper {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 目录感布局 —————— 白色卡片体系 */
+        .card {
+            background: rgba(255, 250, 240, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(120, 80, 40, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+            padding: 2rem 2.2rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(255, 235, 200, 0.5);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 32px rgba(100, 60, 20, 0.18);
+        }
+
+        /* hero 区 ———— 简化但有力 */
+        .hero {
+            text-align: center;
+            padding: 2.8rem 1rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #7c4f2a, #b47b4a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #6b5a44;
+            max-width: 700px;
+            margin: 0.4rem auto 0;
+            border-top: 1px solid #e9dccc;
+            padding-top: 0.8rem;
+            display: inline-block;
+        }
+
+        /* 目录网格 —— 知识库入口卡片 */
+        .index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .index-item {
+            background: #fcf6ed;
+            border-radius: 20px;
+            padding: 1.2rem 1rem 1rem;
+            border: 1px solid #ece0cf;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        .index-item:hover {
+            background: #f6ede0;
+            transform: translateY(-2px);
+        }
+
+        .index-item h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #6b4a2b;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .index-item p {
+            font-size: 0.9rem;
+            color: #4f4336;
+            margin: 0.2rem 0 0;
+        }
+
+        .dir-label {
+            display: inline-block;
+            background: #ebdac5;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #4d3a27;
+            margin-top: 0.6rem;
+        }
+
+        /* 说明区 + 提示区 + 相关信息区 */
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .flex-row .card {
+            flex: 1 1 280px;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #7c5c38;
+            border-left: 5px solid #c9a87c;
+            padding-left: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-badge {
+            background: #f0dbc7;
+            border-radius: 60px;
+            padding: 0.1rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #543f2b;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-button {
+            display: inline-block;
+            background: #dabf9f;
+            color: #2d241c;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.15s, box-shadow 0.1s;
+            box-shadow: 0 1px 3px rgba(80, 50, 20, 0.1);
+            border: none;
+            cursor: default;
+        }
+
+        .link-button:hover {
+            background: #cfb18d;
+            box-shadow: 0 2px 8px rgba(100, 60, 20, 0.15);
+        }
+
+        a {
+            color: #6e4f2e;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            transition: color 0.1s;
+        }
+
+        a:hover {
+            color: #422f1e;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .faq-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #efe3d4;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #4f3924;
+        }
+
+        .faq-a {
+            margin-top: 0.2rem;
+            color: #4d4237;
+            font-size: 0.92rem;
+        }
+
+        .faq-a code {
+            background: #f0e3d2;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: #6f5e4a;
+            font-size: 0.85rem;
+            border-top: 1px solid #e3d3be;
+            padding-top: 1.8rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e6d6c2;
+            margin: 1.8rem 0 1rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.8rem 2rem;
+            }
+            .card {
+                padding: 1.4rem 1rem;
+                border-radius: 20px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .index-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- hero + 简明指南 -->
+    <div class="card hero">
+        <h1>乐竞体育 · 知识库</h1>
+        <div class="sub">从指南到参考 · 信息密度优先</div>
+        <p style="margin-top: 1.2rem; max-width: 650px; margin-left: auto; margin-right: auto; color: #3e352a;">
+            本索引页围绕 <a href="https://to-lejing.com">乐竞体育</a> 整合核心概念、访问准备与常见说明。<br>
+            以下为结构化入口，便于快速定位所需信息。
+        </p>
+    </div>
+
+    <!-- 目录感布局：知识卡片网格 -->
+    <div class="card" style="padding-bottom: 1.6rem;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+            <span class="section-title" style="border-left-color: #bf9e78;">📂 主题目录</span>
+            <span style="font-size: 0.8rem; color: #6b5a44;">6 个入口 · 持续更新</span>
+        </div>
+        <div class="index-grid">
+            <div class="index-item"><h3>📘 平台概述</h3><p>定位、服务范围与基础术语</p><span class="dir-label">入门</span></div>
+            <div class="index-item"><h3>⚙️ 使用准备</h3><p>环境、账户与必要设置</p><span class="dir-label">操作</span></div>
+            <div class="index-item"><h3>🔐 安全提醒</h3><p>隐私保护与链路建议</p><span class="dir-label">提示</span></div>
+            <div class="index-item"><h3>📊 功能索引</h3><p>模块、导航与常用路径</p><span class="dir-label">参考</span></div>
+            <div class="index-item"><h3>📎 相关资源</h3><p>协议、文档与常见链接</p><span class="dir-label">资料</span></div>
+            <div class="index-item"><h3>❓ FAQ 速览</h3><p>高频问题与简要解答</p><span class="dir-label">帮助</span></div>
+        </div>
+    </div>
+
+    <!-- 说明区 + 提示区 双栏 -->
+    <div class="flex-row">
+        <div class="card">
+            <span class="section-title">📋 说明区</span>
+            <p style="margin-bottom: 0.8rem;">本知识库围绕 <a href="https://to-lejing.com">乐竞体育</a> 整理，涵盖以下方面：</p>
+            <ul style="padding-left: 1.3rem; color: #3e352a;">
+                <li>平台基本结构与功能分区</li>
+                <li>账户注册 / 登录的常规流程</li>
+                <li>内容分类与信息检索方式</li>
+                <li>官方通知及版本更新的查阅入口</li>
+            </ul>
+            <p style="margin-top: 0.8rem;">所有条目均基于公开资料与通用操作整理，不包含非公开或诱导性内容。</p>
+        </div>
+        <div class="card">
+            <span class="section-title">⚠️ 提示区</span>
+            <span class="tip-badge">访问提醒</span>
+            <p style="margin-top: 0.2rem;">使用前建议确认以下事项：</p>
+            <ul style="padding-left: 1.3rem; color: #3e352a; margin-top: 0.3rem;">
+                <li>通过官方域名 <code style="background: #efe2d1; padding: 0 0.3rem;">to-lejing.com</code> 访问</li>
+                <li>核对链接拼写，避免仿冒站点</li>
+                <li>个人账号信息勿通过第三方页面提交</li>
+                <li>定期关注平台内公告与安全提醒</li>
+            </ul>
+            <p style="margin-top: 0.7rem; font-size: 0.9rem; background: #f7ede1; padding: 0.4rem 0.8rem; border-radius: 40px;">
+                🔔 官方地址固定为 <a href="https://to-lejing.com">乐竞体育</a>，建议添加书签。
+            </p>
+        </div>
+    </div>
+
+    <!-- 相关信息区 + FAQ 摘要 (二合一) -->
+    <div class="card" style="margin-top: 0.2rem;">
+        <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: space-between;">
+            <div style="flex: 2 1 260px;">
+                <span class="section-title">📌 相关信息</span>
+                <p><strong>协议与规范</strong> · 使用 <a href="https://to-lejing.com">乐竞体育</a> 即表示同意其服务条款与隐私政策。建议初次访问时阅读相关文档。</p>
+                <p style="margin-top: 0.6rem;"><strong>环境建议</strong> · 为获得完整功能，推荐使用主流浏览器的最新版本，并保持系统时间准确。</p>
+                <p style="margin-top: 0.6rem;"><strong>数据参考</strong> · 页面内容仅为知识索引，具体信息以平台实际页面为准。</p>
+            </div>
+            <div style="flex: 3 1 300px;">
+                <span class="section-title">❓ FAQ 摘要</span>
+                <div class="faq-mini">
+                    <div class="faq-item">
+                        <div class="faq-q">· 如何确认当前访问的是官方站点？</div>
+                        <div class="faq-a">检查浏览器地址栏域名是否为 <code>to-lejing.com</code>，并注意 https 标识。官方入口即 <a href="https://to-lejing.com">乐竞体育</a>。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">· 知识库内容多久更新一次？</div>
+                        <div class="faq-a">随平台功能与文档变化不定期修订，建议定期参照官方公告核对。</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">· 遇到链接失效或页面异常怎么办？</div>
+                        <div class="faq-a">优先从站内导航重新定位，或通过 <a href="https://to-lejing.com">乐竞体育</a> 首页寻找对应入口。仍无法解决可查阅帮助中心。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 附加简洁指南（圆角按钮感链接示例） -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1rem 0 0.5rem;">
+        <span class="link-button">📖 快速开始指南</span>
+        <span class="link-button">🔖 收藏本页</span>
+        <span class="link-button">📋 复制官方链接</span>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p style="margin-bottom: 0.3rem;">知识库入口 · 信息索引页 · 基于公开内容整理</p>
+        <p>主域 <a href="https://to-lejing.com">乐竞体育</a> — 建议通过该地址获取最新信息</p>
+        <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 0.6rem;">版本 2025 · 内容供参考，请以实际页面为准</p>
+    </footer>
+</div>
+</body>
+</html>
