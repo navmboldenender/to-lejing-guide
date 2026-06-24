@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>爱游戏 · 运动生活指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f9fc;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a2a3a;
+            padding: 0 1.25rem 3rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-wrap {
+            max-width: 1120px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 12px 40px rgba(16, 60, 72, 0.06);
+            margin-top: 2rem;
+            padding: 2rem 1.8rem 3rem;
+            transition: all 0.2s;
+        }
+
+        /* hero 区域 — 杂志横幅感 */
+        .hero {
+            background: linear-gradient(145deg, #e5f4f0 0%, #d0ece3 100%);
+            border-radius: 28px;
+            padding: 2.6rem 2.2rem;
+            margin-bottom: 2.8rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(60, 148, 130, 0.12);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: 60%;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(50, 160, 140, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #0b3e38;
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #2c5f56;
+            max-width: 520px;
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(2px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid #b2d8cf;
+            margin-top: 0.3rem;
+        }
+
+        .hero .meta-note {
+            margin-top: 1.2rem;
+            font-size: 0.95rem;
+            color: #3e6d64;
+            border-left: 4px solid #278d7a;
+            padding-left: 1rem;
+            background: rgba(255,255,255,0.3);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* 网格卡片系统 — 蓝绿点缀 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin: 2.2rem 0 2.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 1.6rem 2rem;
+            box-shadow: 0 4px 14px rgba(24, 90, 80, 0.04);
+            border: 1px solid #d9ece6;
+            transition: box-shadow 0.25s, transform 0.15s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 24px rgba(28, 110, 96, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .card .icon-badge {
+            display: inline-block;
+            background: #c5e6de;
+            padding: 0.35rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #17574a;
+            margin-bottom: 0.75rem;
+            border: 1px solid #aad3c9;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #12453c;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #284e46;
+            margin-bottom: 0.4rem;
+        }
+
+        .card .highlight {
+            background: #e1f3ee;
+            border-radius: 6px;
+            padding: 0.2rem 0.4rem;
+            color: #0b4b3f;
+            font-weight: 450;
+        }
+
+        /* 三段式自然介绍 — 杂志内页风格 */
+        .featured-article {
+            margin: 1.8rem 0 2.4rem;
+            border-top: 2px solid #b8ddd2;
+            padding-top: 1.8rem;
+        }
+
+        .article-block {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
+        .article-item {
+            background: #f6fcfb;
+            border-radius: 20px;
+            padding: 1.3rem 1.6rem;
+            border-left: 6px solid #3fad97;
+        }
+
+        .article-item h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #13574a;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-item h4::before {
+            content: "▹";
+            color: #2b937e;
+            font-weight: 300;
+            font-size: 1.3rem;
+        }
+
+        .article-item p {
+            font-size: 0.98rem;
+            color: #29564b;
+            margin-top: 0.2rem;
+        }
+
+        .article-item .tag {
+            background: #d5efe8;
+            border-radius: 30px;
+            padding: 0.1rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #105448;
+            display: inline-block;
+            margin-top: 0.4rem;
+        }
+
+        /* 提示与访问区域 */
+        .access-zone {
+            background: #eaf7f3;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.6rem;
+            border: 1px solid #b6d9cf;
+        }
+
+        .access-zone .left {
+            flex: 1 1 200px;
+        }
+
+        .access-zone .left p {
+            font-size: 0.95rem;
+            color: #1f5449;
+            font-weight: 450;
+        }
+
+        .access-zone .left .sentence-link {
+            font-size: 1.05rem;
+            margin-top: 0.3rem;
+        }
+
+        .sentence-link a {
+            color: #166b5b;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #42b49b;
+            padding-bottom: 1px;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .sentence-link a:hover {
+            border-bottom: 2px solid #166b5b;
+            color: #063f34;
+        }
+
+        .access-zone .right {
+            background: white;
+            border-radius: 60px;
+            padding: 0.3rem 1.2rem 0.3rem 1.6rem;
+            border: 1px solid #97cfc0;
+            box-shadow: 0 2px 6px rgba(30, 100, 85, 0.04);
+            font-size: 0.95rem;
+            color: #17574a;
+        }
+
+        .access-zone .right span {
+            background: #c5e6de;
+            padding: 0.1rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 0.4rem;
+        }
+
+        /* 常见问答摘要 (FAQs style) */
+        .faq-mini {
+            margin: 2.4rem 0 0.8rem;
+            border-radius: 24px;
+            background: #f2faf8;
+            padding: 1.2rem 1.6rem 1.6rem;
+        }
+
+        .faq-mini h5 {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #14554a;
+            border-bottom: 1px solid #bddbd2;
+            padding-bottom: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.6rem;
+        }
+
+        .faq-item {
+            flex: 1 1 180px;
+            background: white;
+            border-radius: 40px;
+            padding: 0.4rem 1rem 0.4rem 1.2rem;
+            border: 1px solid #cdede4;
+            font-size: 0.9rem;
+            color: #1c5549;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .faq-item::before {
+            content: "❀";
+            font-size: 0.8rem;
+            color: #3d9e89;
+        }
+
+        .faq-item span {
+            font-weight: 450;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6b8d84;
+            border-top: 1px solid #c8e3db;
+            padding-top: 1.8rem;
+            letter-spacing: 0.01em;
+        }
+
+        /* 移动端适应 */
+        @media (max-width: 700px) {
+            .page-wrap {
+                padding: 1.2rem 1rem 2rem;
+                margin-top: 1rem;
+            }
+
+            .hero {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .access-zone {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1.4rem 1.2rem;
+                text-align: left;
+            }
+
+            .faq-item {
+                flex: 1 1 100%;
+            }
+
+            .article-item {
+                padding: 1rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .hero .sub {
+                font-size: 0.95rem;
+                padding: 0.3rem 0.9rem;
+            }
+
+            .card {
+                padding: 1.2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <!-- 首页横幅 hero -->
+    <div class="hero">
+        <h1>运动日常 · 简明指南</h1>
+        <div class="sub">从轻量活动到持续节奏</div>
+        <div class="meta-note">
+            无论你是刚起步还是想调整习惯，<br>这里有一份温和的参考。
+        </div>
+    </div>
+
+    <!-- 背景说明 / 网格卡片 -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon-badge">🧭 方向</div>
+            <h3>活动不必复杂</h3>
+            <p>每天十五分钟散步、拉伸或者简单的力量动作，都比想象中更有积累效果。<span class="highlight">关键在于持续</span>，而不是单次强度。许多研究也支持少量多次的活动方式。</p>
+        </div>
+        <div class="card">
+            <div class="icon-badge">🌱 节奏</div>
+            <h3>找到你的步调</h3>
+            <p>有人喜欢晨间空腹活动，有人偏爱傍晚放松。试着在不同时段尝试，留意身体的反馈。不需要跟任何人比较，<span class="highlight">自己的感受</span>就是最好的指标。</p>
+        </div>
+    </div>
+
+    <!-- 三段自然介绍 杂志式 -->
+    <div class="featured-article">
+        <div class="article-block">
+            <div class="article-item">
+                <h4>从家里开始的空间利用</h4>
+                <p>不需要专业器材，一把椅子、一面墙、一块瑜伽垫就能完成很多基础动作。靠墙静蹲、椅子辅助的下蹲、甚至站立拉伸，都能激活肌肉与关节。如果你愿意，也可以借助自重训练慢慢增加难度。</p>
+                <span class="tag">居家</span>
+            </div>
+            <div class="article-item">
+                <h4>户外活动的自然变化</h4>
+                <p>快走、慢跑、骑行、或者简单的远足，都能让心肺得到温和的刺激。路面坡度、风速、日照都会带来不同的体感，这也是户外运动的乐趣之一。记得根据天气调整衣物和补给。</p>
+                <span class="tag">户外</span>
+            </div>
+            <div class="article-item">
+                <h4>恢复与休息同样重要</h4>
+                <p>连续活动几天后，安排一天低强度或完全休息，有助于肌肉修复与神经放松。拉伸、泡沫轴按摩、甚至冥想都可以作为恢复日的内容。学会倾听身体细微的紧张信号。</p>
+                <span class="tag">恢复</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 常见问答摘要 -->
+    <div class="faq-mini">
+        <h5>快速参考 · 常见想法</h5>
+        <div class="faq-row">
+            <div class="faq-item"><span>每次动多久？</span> 10–30 分钟都可，看状态</div>
+            <div class="faq-item"><span>需要热身吗？</span> 建议动态拉伸 3–5 分钟</div>
+            <div class="faq-item"><span>怕坚持不了？</span> 从每周 2 次开始，建立小里程碑</div>
+        </div>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <div class="access-zone">
+        <div class="left">
+            <p>想了解更多运动相关的灵感与内容？</p>
+            <div class="sentence-link">
+                你可以通过 <a href="https://site-sport-igame.com">爱游戏</a> 浏览更多主题与社区分享。
+            </div>
+        </div>
+        <div class="right">
+            📌 日常参考 <span>轻松节奏</span>
+        </div>
+    </div>
+
+    <!-- 页尾装饰 -->
+    <div class="footer-note">
+        <span>杂志式运动笔记 · 基于个人经验与公开信息整理</span>
+    </div>
+</div>
+</body>
+</html>
